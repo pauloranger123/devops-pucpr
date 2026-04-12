@@ -21,31 +21,33 @@ def add_task(description):
 
 def list_tasks():
     tasks = load_tasks()
+    print("\n--- SUAS TAREFAS ---")
     if not tasks:
-        print("Nenhuma tarefa pendente.")
+        print("Nenhuma tarefa encontrada.")
         return
+    
     for t in tasks:
-        status = "[X]" if t["done"] else "[ ]"
+        status = "[X]" if t.get("done") else "[ ]"
         print(f"{t['id']}. {status} {t['task']}")
+    print("--------------------")
 
 def main():
     while True:
-        print("\n--- To-Do List CLI ---")
-        print("1. Adicionar Tarefa")
-        print("2. Listar Tarefas")
-        print("3. Sair")
-        
-        choice = input("Escolha uma opção: ")
+        print("\n1. Adicionar | 2. Listar | 3. Sair")
+        # .strip() remove espaços extras acidentais
+        choice = input("Escolha: ").strip()
         
         if choice == "1":
-            desc = input("Descrição da tarefa: ")
-            add_task(desc)
+            desc = input("Descrição: ").strip()
+            if desc:
+                add_task(desc)
         elif choice == "2":
             list_tasks()
         elif choice == "3":
+            print("Saindo...")
             break
         else:
-            print("Opção inválida.")
+            print("Opção inválida!")
 
 if __name__ == "__main__":
     main()

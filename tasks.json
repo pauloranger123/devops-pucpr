@@ -1,7 +1,12 @@
 [
     {
         "id": 1,
-        "task": "estudar 1 hora",
+        "task": "estudar",
+        "done": false
+    },
+    {
+        "id": 2,
+        "task": "tomar cafe",
         "done": false
     }
 ]
