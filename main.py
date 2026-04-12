@@ -31,9 +31,25 @@ def list_tasks():
         print(f"{t['id']}. {status} {t['task']}")
     print("--------------------")
 
+
+def complete_task(task_id):
+    tasks = load_tasks()
+    found = False
+    for t in tasks:
+        if t["id"] == task_id:
+            t["done"] = True
+            found = True
+            break
+    
+    if found:
+        save_tasks(tasks)
+        print(f"\n[OK] Tarefa {task_id} marcada como concluída!")
+    else:
+        print(f"\n[!] Tarefa com ID {task_id} não encontrada.")
+
 def main():
     while True:
-        print("\n1. Adicionar | 2. Listar | 3. Sair")
+        print("\n1. Adicionar | 2. Listar | 3. Concluir | 4. Sair")
         # .strip() remove espaços extras acidentais
         choice = input("Escolha: ").strip()
         
@@ -44,6 +60,13 @@ def main():
         elif choice == "2":
             list_tasks()
         elif choice == "3":
+            list_tasks()
+            try:
+                id_to_complete = int(input("Digite o ID da tarefa para concluir: "))
+                complete_task(id_to_complete)
+            except ValueError:
+                print("Por favor, digite um número válido.")
+        elif choice == "4":
             print("Saindo...")
             break
         else:

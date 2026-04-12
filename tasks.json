@@ -2,11 +2,11 @@
     {
         "id": 1,
         "task": "estudar",
-        "done": false
+        "done": true
     },
     {
         "id": 2,
         "task": "tomar cafe",
-        "done": false
+        "done": true
     }
 ]
