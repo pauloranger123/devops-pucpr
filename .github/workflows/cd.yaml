@@ -1,0 +1,23 @@
+name: Continuous Delivery Workflow
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: 
+  push:
+    branches: [ main ]
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5   
+           
+      - name: Simulando Continuous Delivery
+        uses: actions/upload-artifact@v7
+        with:
+          name: my-artifact
+          path: |
+            main.py
+            tasks.json
+
+
+
+
