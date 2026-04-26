@@ -1,4 +1,4 @@
-name: Discord Webhook
+name: Discord Commits
 
 on: 
   pull_request:
@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0 # CRUCIAL: Baixa todo o histórico para a Action não ler "undefined"
 
-      - name: Run Discord Webhook
+      - name: Discord Commits
         uses: Sniddl/discord-commits@v1.8
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
