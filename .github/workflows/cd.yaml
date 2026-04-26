@@ -15,7 +15,7 @@ jobs:
         with:
           name: my-artifact
           path: |
-            main.py
+            **.py
             tasks.json
 
 
