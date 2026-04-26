@@ -7,19 +7,18 @@ on:
 jobs:
   discord:
     runs-on: ubuntu-latest
-    # Adicionamos permissão de leitura para a Action conseguir ver os commits
     permissions:
       contents: read
       
     steps:
       - name: Checkout
-        uses: actions/checkout@v4 # Atualizei para a v4 (mais estável)
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # CRUCIAL: Baixa todo o histórico para a Action não ler "undefined"
+          fetch-depth: 0
 
       - name: Discord Commits
         uses: Sniddl/discord-commits@v1.8
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-        template: "avatar-with-link"
-        include-extras: true
+          webhook: ${{ secrets.DISCORD_WEBHOOK }} # Atenção: nesta action o nome costuma ser 'webhook'
+          template: "avatar-with-link"
+          include-extras: true
