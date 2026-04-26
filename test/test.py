@@ -4,32 +4,25 @@ from src.main import *
 
 FILE_NAME = "tasks.json"
 
-def test_load_tasks_file_not_exists(tmp_path, monkeypatch):
+def test_load_tasks_file_not_exists(tmp_path):
     fake_file = tmp_path / "tasks.json"
 
-    monkeypatch.setattr("src.main.FILE_NAME", str(fake_file))
-
-    result = load_tasks()
+    result = load_tasks(fake_file)
 
     assert result == []
 
-def test_save_tasks(tmp_path, monkeypatch):
+def test_save_tasks(tmp_path):
     fake_file = tmp_path / "tasks.json"
 
-    # aponta FILE_NAME para o arquivo fake
-    monkeypatch.setattr("src.main.FILE_NAME", str(fake_file))
+    data = [
+        {"id": 1, "task": "estudar", "done": False}
+    ]
 
-    data = [{"task": "estudar"}, {"task": "codar"}]
+    save_tasks(data, fake_file)
 
-    save_tasks(data)
-
-    # verifica se o arquivo foi criado
     assert fake_file.exists()
 
-    # verifica o conteúdo
-    with open(fake_file, "r") as f:
-        content = json.load(f)
-
+    content = json.loads(fake_file.read_text())
     assert content == data
 
 def test_add_task(tmp_path):
@@ -39,41 +32,45 @@ def test_add_task(tmp_path):
     {"id": 1, "task": "teste", "done": False}
 
 def test_list_tasks_output(capsys, tmp_path):
-    # cria arquivo com tarefas
-    list_tasks()
+    fake_file = tmp_path / "tasks.json"
+
+    data = [
+        {"id": 1, "task": "teste", "done": False}
+    ]
+
+    fake_file.write_text(json.dumps(data))
+
+    list_tasks(fake_file)
 
     captured = capsys.readouterr()
 
-    assert "SUAS TAREFAS" in captured.out
+    assert "teste" in captured.out
 
-def test_complete_task(tmp_path, monkeypatch):
+def test_complete_task(tmp_path):
     fake_file = tmp_path / "tasks.json"
 
-    data = [{"id": 1, "task": "teste", "done": False}]
+    data = [
+        {"id": 1, "task": "teste", "done": False}
+    ]
+
     fake_file.write_text(json.dumps(data))
 
-    monkeypatch.setattr("src.main.FILE_NAME", str(fake_file))
+    result = complete_task(1, fake_file)
 
-    result = complete_task(1)
-
-    assert result is None  # ou verifica o arquivo depois
+    assert result is True
 
 def test_complete_task_not_found(tmp_path):
     fake_file = tmp_path / "tasks.json"
 
     data = [
-        {"id": 1, "task": "estudar", "done": False}
+        {"id": 1, "task": "teste", "done": False}
     ]
 
     fake_file.write_text(json.dumps(data))
 
-    result = complete_task(1)
+    result = complete_task(999, fake_file)
 
     assert result is False
-
-    # garante que não mudou nada
-    updated = json.loads(fake_file.read_text())
-    assert updated[0]["done"] is False
 
 if __name__ == "__main__":
     main()

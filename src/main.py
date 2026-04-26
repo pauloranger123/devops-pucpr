@@ -4,14 +4,14 @@ import os
 FILE_NAME = "tasks.json"
 
 
-def load_tasks():
-    if not os.path.exists(FILE_NAME):
+def load_tasks(file_name=FILE_NAME):
+    if not os.path.exists(file_name):
         return []
-    with open(FILE_NAME, "r") as f:
+    with open(file_name, "r") as f:
         return json.load(f)
 
-def save_tasks(tasks):
-    with open(FILE_NAME, "w") as f:
+def save_tasks(tasks, file_name=FILE_NAME):
+    with open(file_name, "w") as f:
         json.dump(tasks, f, indent=4)
 
 def add_task(description):
@@ -20,8 +20,10 @@ def add_task(description):
     save_tasks(tasks)
     print(f"Tarefa adicionada: {description}")
 
-def list_tasks():
-    tasks = load_tasks()
+    
+
+def list_tasks(file_name=FILE_NAME):
+    tasks = load_tasks(file_name)
     print("\n--- SUAS TAREFAS ---")
     if not tasks:
         print("Nenhuma tarefa encontrada.")
@@ -33,9 +35,10 @@ def list_tasks():
     print("--------------------")
 
 
-def complete_task(task_id):
-    tasks = load_tasks()
+def complete_task(task_id, file_name=FILE_NAME):
+    tasks = load_tasks(file_name)
     found = False
+
     for t in tasks:
         if t["id"] == task_id:
             t["done"] = True
@@ -43,10 +46,12 @@ def complete_task(task_id):
             break
     
     if found:
-        save_tasks(tasks)
+        save_tasks(tasks, file_name)
         print(f"\n[OK] Tarefa {task_id} marcada como concluída!")
+        return True
     else:
         print(f"\n[!] Tarefa com ID {task_id} não encontrada.")
+        return False
 
 def main():
     while True:
