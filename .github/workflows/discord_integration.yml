@@ -6,15 +6,12 @@ on:
 
 jobs:
   discord:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      
+    runs-on: ubuntu-latest  
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with:         
 
       - name: Discord Commits
         uses: Sniddl/discord-commits@v1.8
