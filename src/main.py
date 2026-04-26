@@ -20,8 +20,10 @@ def add_task(description):
     save_tasks(tasks)
     print(f"Tarefa adicionada: {description}")
 
-def list_tasks():
-    tasks = load_tasks()
+    
+
+def list_tasks(file_name=FILE_NAME):
+    tasks = load_tasks(file_name)
     print("\n--- SUAS TAREFAS ---")
     if not tasks:
         print("Nenhuma tarefa encontrada.")
