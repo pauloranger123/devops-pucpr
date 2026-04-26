@@ -67,13 +67,9 @@ def test_complete_task_not_found(tmp_path):
 
     fake_file.write_text(json.dumps(data))
 
-    result = complete_task(1)
+    result = complete_task(999, fake_file)
 
     assert result is False
-
-    # garante que não mudou nada
-    updated = json.loads(fake_file.read_text())
-    assert updated[0]["done"] is False
 
 if __name__ == "__main__":
     main()

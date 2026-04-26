@@ -33,9 +33,10 @@ def list_tasks():
     print("--------------------")
 
 
-def complete_task(task_id):
-    tasks = load_tasks()
+def complete_task(task_id, file_name=FILE_NAME):
+    tasks = load_tasks(file_name)
     found = False
+
     for t in tasks:
         if t["id"] == task_id:
             t["done"] = True
@@ -43,10 +44,12 @@ def complete_task(task_id):
             break
     
     if found:
-        save_tasks(tasks)
+        save_tasks(tasks, file_name)
         print(f"\n[OK] Tarefa {task_id} marcada como concluída!")
+        return True
     else:
         print(f"\n[!] Tarefa com ID {task_id} não encontrada.")
+        return False
 
 def main():
     while True:
