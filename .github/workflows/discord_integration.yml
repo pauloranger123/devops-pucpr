@@ -1,5 +1,3 @@
-name: Discord Webhook
-
 discord:
     runs-on: ubuntu-latest
     steps:
