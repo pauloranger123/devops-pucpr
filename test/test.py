@@ -36,7 +36,7 @@ def test_add_task(tmp_path):
     # começa com arquivo vazio
     add_task("teste")
     # verifica se o arquivo tem 1 item com:
-    id = 1, task="teste", done=False
+    {"id": 1, "task": "teste", "done": False}
 
 def test_list_tasks_output(capsys, tmp_path):
     # cria arquivo com tarefas
