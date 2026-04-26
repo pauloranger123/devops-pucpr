@@ -11,11 +11,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:         
+        # Removi o "with:" vazio que estava aqui
 
       - name: Discord Commits
         uses: Sniddl/discord-commits@v1.8
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }} # Atenção: nesta action o nome costuma ser 'webhook'
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
           template: "avatar-with-link"
           include-extras: true
