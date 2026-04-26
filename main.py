@@ -3,6 +3,7 @@ import os
 
 FILE_NAME = "tasks.json"
 
+
 def load_tasks():
     if not os.path.exists(FILE_NAME):
         return []
